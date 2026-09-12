@@ -37,13 +37,6 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* Corner award badge — echoes bcmarin's badge, but generic */}
-      <div className="hidden md:block absolute bottom-6 right-6 z-10">
-        <div className="rotate-[-6deg] bg-black/60 backdrop-blur-sm text-white px-4 py-3 border border-white/20">
-          <p className="font-display text-xs tracking-widest">MARINE</p>
-          <p className="eyebrow text-[9px] mt-1 text-white/70">Interactive Awards</p>
-        </div>
-      </div>
     </section>
   );
 }
