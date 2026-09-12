@@ -24,7 +24,7 @@ export default function About() {
             </h2>
             <p className="text-neutral-600 leading-relaxed font-light mb-6">
               MARINE is a global brokerage specialising in the sale and charter
-              of luxury yachts. Our reputation is built on a simple principle —
+              of luxury yachts. Our reputation is built on a simple principle:
               deliver the best service, always. From first survey to final
               handover, we advocate for the client and for the sea.
             </p>

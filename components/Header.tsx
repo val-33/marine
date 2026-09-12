@@ -33,7 +33,7 @@ export default function Header() {
         <Link
           href="/"
           className="tracked-heading text-white text-[13px] md:text-sm select-none"
-          aria-label="MARINE — home"
+          aria-label="MARINE home"
         >
           <span className="font-display italic text-lg md:text-xl not-italic tracking-[0.4em]">
             MARINE

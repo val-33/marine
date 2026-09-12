@@ -22,7 +22,7 @@ export default function Hero() {
         </h1>
         <p className="mt-10 max-w-2xl text-white/80 font-light text-sm md:text-base leading-relaxed">
           Our fleet delivers superior quality and unrivalled value. A curated
-          selection of luxury yachts from the world&apos;s leading builders —
+          selection of luxury yachts from the world&apos;s leading builders,
           crafted for those who know the sea.
         </p>
 

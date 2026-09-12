@@ -15,7 +15,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "MARINE — Luxury Yachts For Sale & Charter",
+  title: "MARINE. Luxury Yachts For Sale & Charter",
   description:
     "MARINE is a global yacht brokerage specialising in the sale and charter of luxury yachts. Curated fleet, expert crew, tailored voyages.",
 };

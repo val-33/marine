@@ -9,7 +9,7 @@ export default function Signature() {
         <p className="mx-auto max-w-2xl text-neutral-600 leading-relaxed font-light">
           Our team of experts has extensive knowledge of every class of vessel
           and their features, providing tailored advice to our clients when
-          selecting their ideal yacht — whether for private ownership, charter,
+          selecting their ideal yacht, whether for private ownership, charter,
           or long-passage cruising.
         </p>
 

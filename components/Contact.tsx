@@ -13,7 +13,7 @@ export default function Contact() {
               Speak with a broker
             </h2>
             <p className="text-white/70 leading-relaxed font-light max-w-md">
-              Tell us what you are looking for — buying, selling, or chartering.
+              Tell us what you are looking for: buying, selling, or chartering.
               A dedicated broker will be in touch within one business day.
             </p>
 
