@@ -41,6 +41,47 @@ export default function Contact() {
   const beforeOpacity = useTransform(scrollYProgress, [0.35, 0.48], [1, 0]);
   const afterOpacity = useTransform(scrollYProgress, [0.52, 0.65], [0, 1]);
 
+  // Disable pointer events on whichever layer is (nearly) invisible so
+  // touch events pass through to the page scroll — otherwise on mobile
+  // an inert AFTER layer at opacity 0 still eats swipe gestures.
+  const beforePE = useTransform(beforeOpacity, (o) => (o > 0.4 ? "auto" : "none"));
+  const afterPE = useTransform(afterOpacity, (o) => (o > 0.4 ? "auto" : "none"));
+
+  // Any `<a href="#contact">` on the page should land on the fully
+  // revealed Get-in-Touch panel, not on the top of the wipe. Intercept
+  // clicks and scroll to the end of the sticky range instead. Also
+  // handle a direct page load with the #contact hash.
+  useEffect(() => {
+    const scrollToPanel = (behavior: ScrollBehavior) => {
+      const el = targetRef.current;
+      if (!el) return;
+      const targetY = el.offsetTop + el.offsetHeight - window.innerHeight;
+      window.scrollTo({ top: targetY, behavior });
+    };
+
+    const onClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const anchor = target?.closest('a[href="#contact"]');
+      if (!anchor) return;
+      e.preventDefault();
+      // Explicit "instant" — the page sets scroll-behavior: smooth on
+      // <html>, which "auto" would inherit and can stall in some
+      // browsers or interact badly with hash navigation.
+      scrollToPanel("instant");
+      history.replaceState(null, "", "#contact");
+    };
+
+    document.addEventListener("click", onClick);
+    if (window.location.hash === "#contact") {
+      const t = window.setTimeout(() => scrollToPanel("instant"), 50);
+      return () => {
+        window.clearTimeout(t);
+        document.removeEventListener("click", onClick);
+      };
+    }
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
   return (
     <section
       id="contact"
@@ -50,7 +91,7 @@ export default function Contact() {
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
         {/* BEFORE — Sail with MARINE */}
         <motion.div
-          style={{ opacity: beforeOpacity }}
+          style={{ opacity: beforeOpacity, pointerEvents: beforePE }}
           className="absolute inset-0 z-10 flex items-center justify-center px-6"
         >
           <div className="mx-auto max-w-3xl text-center">
@@ -70,15 +111,15 @@ export default function Contact() {
 
         {/* AFTER — Get in Touch (starts near top on mobile, centred on md+) */}
         <motion.div
-          style={{ opacity: afterOpacity }}
-          className="absolute inset-0 z-10 flex items-start md:items-center justify-center px-6 md:px-10 pt-24 pb-10 md:pt-0 md:pb-0 overflow-y-auto"
+          style={{ opacity: afterOpacity, pointerEvents: afterPE }}
+          className="absolute inset-0 z-10 flex items-start md:items-center justify-center px-6 md:px-10 pt-20 pb-8 md:pt-0 md:pb-0"
         >
-          <div className="mx-auto max-w-[1200px] w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="mx-auto max-w-[1200px] w-full grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:gap-16 items-start">
             <div>
-              <p className="eyebrow text-white/60 text-[11px] mb-4">
+              <p className="eyebrow text-white/60 text-[11px] mb-3">
                 Get in Touch
               </p>
-              <h2 className="tracked-heading text-white text-xl md:text-2xl lg:text-[26px] mb-6">
+              <h2 className="tracked-heading text-white text-lg md:text-2xl lg:text-[26px] mb-4">
                 Speak with a broker
               </h2>
               <p className="text-white/70 leading-relaxed font-light max-w-md text-sm md:text-base">
@@ -87,7 +128,7 @@ export default function Contact() {
                 business day.
               </p>
 
-              <dl className="mt-8 space-y-4">
+              <dl className="mt-5 md:mt-8 space-y-3 md:space-y-4">
                 <ContactRow
                   label="Head Office"
                   value="Port Vauban, Antibes, France"
@@ -98,7 +139,7 @@ export default function Contact() {
             </div>
 
             <form
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4"
               onSubmit={(e) => e.preventDefault()}
             >
               <Field label="Name" name="name" required />
