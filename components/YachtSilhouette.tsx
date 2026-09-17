@@ -1,19 +1,22 @@
 interface YachtSilhouetteProps {
   className?: string;
-  /** Rendered width in px. Defaults to 880 (≈ desktop hero-friendly). */
+  /** Rendered width in px. Defaults to 1000 for a proper long-profile look. */
   width?: number;
 }
 
 /**
- * Side-view luxury motor yacht illustration. Dark navy hull, stacked
- * white superstructure with tinted glass strips, tall detailed mast,
- * Italian-tricolor pennant. Drawn on a transparent background.
+ * Side-view luxury motor yacht illustration. Long low profile, dark
+ * navy hull, sweeping curved white superstructure with tinted glass,
+ * tall multi-tier radar mast, and a tricolor pennant. Transparent
+ * background. Original artwork inspired by modern superyacht styling.
  */
-export default function YachtSilhouette({ className, width = 880 }: YachtSilhouetteProps) {
-  const height = Math.round((width * 300) / 1200);
+export default function YachtSilhouette({ className, width = 1000 }: YachtSilhouetteProps) {
+  const VB_W = 1400;
+  const VB_H = 340;
+  const height = Math.round((width * VB_H) / VB_W);
   return (
     <svg
-      viewBox="0 0 1200 300"
+      viewBox={`0 0 ${VB_W} ${VB_H}`}
       width={width}
       height={height}
       xmlns="http://www.w3.org/2000/svg"
@@ -22,229 +25,323 @@ export default function YachtSilhouette({ className, width = 880 }: YachtSilhoue
     >
       <defs>
         <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1a3050" />
-          <stop offset="55%" stopColor="#0a1a2e" />
-          <stop offset="100%" stopColor="#040a15" />
+          <stop offset="0%" stopColor="#233b5c" />
+          <stop offset="35%" stopColor="#0e1e35" />
+          <stop offset="100%" stopColor="#02060d" />
+        </linearGradient>
+        <linearGradient id="hullSheen" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="20%" stopColor="#ffffff" stopOpacity="0.06" />
+          <stop offset="35%" stopColor="#ffffff" stopOpacity="0.12" />
+          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.04" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
         <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#dfe4ec" />
+          <stop offset="70%" stopColor="#eef2f8" />
+          <stop offset="100%" stopColor="#d5dce6" />
         </linearGradient>
         <linearGradient id="body2" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#e6ebf2" />
+          <stop offset="100%" stopColor="#dde4ee" />
         </linearGradient>
         <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0a1728" />
-          <stop offset="100%" stopColor="#1e3352" />
+          <stop offset="0%" stopColor="#040b18" />
+          <stop offset="50%" stopColor="#0e1e35" />
+          <stop offset="100%" stopColor="#1b3253" />
         </linearGradient>
-        <linearGradient id="glass-sheen" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id="glassSheen" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-          <stop offset="45%" stopColor="#ffffff" stopOpacity="0.15" />
-          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.25" />
-          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.15" />
+          <stop offset="45%" stopColor="#ffffff" stopOpacity="0.12" />
+          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.28" />
+          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.12" />
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
         <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#000000" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#000000" stopOpacity="0" />
+          <stop offset="0%" stopColor="#000" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#000" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      {/* Reflection / shadow beneath the yacht */}
-      <ellipse cx="600" cy="245" rx="560" ry="9" fill="url(#shadow)" />
+      {/* Soft shadow beneath */}
+      <ellipse cx="700" cy="278" rx="640" ry="10" fill="url(#shadow)" />
 
-      {/* Hull — long, low profile with sharp pointed bow and vertical stern */}
+      {/* ------ HULL ------ long, low, sharp pointed bow, vertical stern */}
       <path
-        d="M 18 182
-           L 108 152
-           L 1128 152
-           L 1160 190
-           L 1156 214
-           L 32 214 Z"
+        d="M 20 218
+           C 48 214, 90 202, 132 190
+           L 1340 190
+           C 1362 190, 1378 198, 1382 214
+           L 1382 240
+           C 1382 250, 1372 256, 1360 256
+           L 40 256
+           C 26 256, 16 246, 20 218 Z"
         fill="url(#hull)"
       />
+      {/* Long hull sheen */}
+      <path
+        d="M 20 218
+           C 48 214, 90 202, 132 190
+           L 1340 190
+           C 1362 190, 1378 198, 1382 214
+           L 1382 240
+           C 1382 250, 1372 256, 1360 256
+           L 40 256
+           C 26 256, 16 246, 20 218 Z"
+        fill="url(#hullSheen)"
+      />
+      {/* Thin light accent stripe along top of hull */}
+      <path
+        d="M 40 202 C 90 194, 132 192, 160 192 L 1340 192"
+        stroke="#7a8ea8"
+        strokeWidth="0.9"
+        fill="none"
+        opacity="0.55"
+      />
+      {/* Row of small square windows in the hull */}
+      <g fill="#e5ebf3" opacity="0.9">
+        {Array.from({ length: 28 }).map((_, i) => (
+          <rect key={`hw${i}`} x={200 + i * 40} y={218} width={5} height={4} rx={0.5} />
+        ))}
+      </g>
+      {/* Aft porthole cluster */}
+      <g fill="#e5ebf3" opacity="0.9">
+        <rect x={1320} y={218} width={5} height={4} rx={0.5} />
+        <rect x={1330} y={218} width={5} height={4} rx={0.5} />
+        <rect x={1340} y={218} width={5} height={4} rx={0.5} />
+        <rect x={1350} y={218} width={5} height={4} rx={0.5} />
+      </g>
 
-      {/* Thin accent stripe just below deck line */}
+      {/* Water surface line just above hull bottom */}
       <line
-        x1="36"
-        y1="162"
-        x2="1148"
-        y2="162"
-        stroke="#5f7896"
-        strokeWidth="0.7"
-        opacity="0.6"
+        x1="0"
+        y1="257"
+        x2="1400"
+        y2="257"
+        stroke="#000"
+        strokeWidth="1.2"
+        opacity="0.55"
       />
-
-      {/* Small square windows in a row along the hull */}
-      <g fill="#dde4ee" opacity="0.9">
-        {Array.from({ length: 22 }).map((_, i) => (
-          <rect key={`hw${i}`} x={190 + i * 42} y={176} width={5.5} height={4} rx={0.5} />
-        ))}
-      </g>
-
-      {/* Bow rail hint */}
-      <path
-        d="M 108 152 L 40 180"
-        stroke="#c8d0dc"
+      <line
+        x1="0"
+        y1="261"
+        x2="1400"
+        y2="261"
+        stroke="#000"
         strokeWidth="0.6"
-        opacity="0.35"
-        strokeDasharray="1 2"
+        opacity="0.25"
       />
 
-      {/* Stern rail hint */}
-      <path
-        d="M 1128 152 L 1156 190"
-        stroke="#c8d0dc"
-        strokeWidth="0.6"
-        opacity="0.35"
-        strokeDasharray="1 2"
-      />
+      {/* Anchor detail at bow */}
+      <rect x="150" y="204" width="8" height="6" fill="#7a8ea8" opacity="0.6" />
 
-      {/* ---- Main deck (largest superstructure level) ---- */}
+      {/* ------ MAIN DECK ------ sweeping profile, not a trapezoid */}
       <path
-        d="M 195 152
-           L 1020 152
-           L 1005 100
-           L 210 100 Z"
+        d="M 230 190
+           C 250 180, 280 172, 320 168
+           L 1220 168
+           C 1256 168, 1284 176, 1300 190
+           Z"
         fill="url(#body)"
-        stroke="#c8d0dc"
-        strokeWidth="0.6"
+        stroke="#c6cfdc"
+        strokeWidth="0.7"
       />
-      {/* Sweep line accent on the top of the main deck */}
+      {/* Long tinted glass strip on main deck */}
       <path
-        d="M 210 100 Q 615 92, 1005 100"
-        fill="none"
-        stroke="#c1cad6"
-        strokeWidth="0.8"
-        opacity="0.7"
+        d="M 260 178
+           C 280 174, 310 172, 340 172
+           L 1240 172
+           C 1268 172, 1286 178, 1296 188
+           L 260 188 Z"
+        fill="url(#glass)"
       />
-      {/* Long dark tinted glass strip */}
-      <rect x="230" y="108" width="765" height="36" fill="url(#glass)" />
-      <rect x="230" y="108" width="765" height="36" fill="url(#glass-sheen)" />
-      {/* Vertical mullions dividing the glass into panels */}
+      <path
+        d="M 260 178
+           C 280 174, 310 172, 340 172
+           L 1240 172
+           C 1268 172, 1286 178, 1296 188
+           L 260 188 Z"
+        fill="url(#glassSheen)"
+      />
+      {/* Glass mullions */}
       <g fill="#dde4ee" opacity="0.35">
-        {Array.from({ length: 15 }).map((_, i) => (
-          <rect key={`gm${i}`} x={230 + (i + 1) * 47.8} y={108} width={0.6} height={36} />
+        {Array.from({ length: 22 }).map((_, i) => (
+          <rect key={`gm${i}`} x={310 + i * 42} y={172} width={0.7} height={16} />
         ))}
       </g>
 
-      {/* ---- Upper deck ---- */}
+      {/* ------ UPPER DECK ------ flowing curves */}
       <path
-        d="M 310 100
-           L 900 100
-           L 878 60
-           L 328 60 Z"
+        d="M 360 168
+           C 400 148, 480 132, 620 128
+           L 1080 128
+           C 1170 132, 1220 148, 1240 168
+           Z"
         fill="url(#body2)"
-        stroke="#c8d0dc"
+        stroke="#c6cfdc"
+        strokeWidth="0.7"
+      />
+      {/* Sweeping accent line under upper-deck edge */}
+      <path
+        d="M 380 158
+           C 460 142, 620 134, 850 134
+           C 1040 134, 1160 144, 1220 158"
+        fill="none"
+        stroke="#b1bccb"
+        strokeWidth="0.9"
+        opacity="0.75"
+      />
+      {/* Upper-deck glass */}
+      <path
+        d="M 420 148
+           C 470 138, 560 134, 700 134
+           L 1000 134
+           C 1140 134, 1190 140, 1220 152
+           L 1210 164
+           L 430 164 Z"
+        fill="url(#glass)"
+      />
+      <path
+        d="M 420 148
+           C 470 138, 560 134, 700 134
+           L 1000 134
+           C 1140 134, 1190 140, 1220 152
+           L 1210 164
+           L 430 164 Z"
+        fill="url(#glassSheen)"
+      />
+
+      {/* ------ BRIDGE / SUN DECK cap ------ */}
+      <path
+        d="M 550 128
+           C 600 100, 720 90, 880 92
+           C 980 94, 1040 108, 1060 128
+           Z"
+        fill="url(#body2)"
+        stroke="#c6cfdc"
         strokeWidth="0.6"
       />
-      {/* Sweeping curve accent connecting bridge to sundeck */}
+      {/* Bridge windshield */}
       <path
-        d="M 328 60 Q 604 44, 878 60"
-        fill="none"
-        stroke="#b5bfcd"
-        strokeWidth="1"
-        opacity="0.65"
+        d="M 590 118
+           C 640 102, 740 96, 860 98
+           C 950 100, 1000 110, 1020 122
+           L 590 122 Z"
+        fill="url(#glass)"
       />
-      <rect x="350" y="68" width="510" height="24" fill="url(#glass)" />
-      <rect x="350" y="68" width="510" height="24" fill="url(#glass-sheen)" />
-      <g fill="#dde4ee" opacity="0.3">
-        {Array.from({ length: 11 }).map((_, i) => (
-          <rect key={`um${i}`} x={350 + (i + 1) * 42.5} y={68} width={0.6} height={24} />
-        ))}
+      <path
+        d="M 590 118
+           C 640 102, 740 96, 860 98
+           C 950 100, 1000 110, 1020 122
+           L 590 122 Z"
+        fill="url(#glassSheen)"
+      />
+
+      {/* Radar arch over sun deck */}
+      <path
+        d="M 620 92 C 720 42, 900 42, 990 92"
+        fill="none"
+        stroke="#dde4ee"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 620 92 C 720 42, 900 42, 990 92"
+        fill="none"
+        stroke="#7a8ea8"
+        strokeWidth="1"
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+
+      {/* Small side railings on foredeck */}
+      <g stroke="#c6cfdc" strokeWidth="0.6" opacity="0.55">
+        <line x1="230" y1="185" x2="360" y2="168" />
+        <line x1="1240" y1="168" x2="1310" y2="188" />
       </g>
 
-      {/* ---- Sundeck / bridge cap ---- */}
+      {/* ------ MAST TOWER ------ tall multi-tier structure */}
+      {/* Base of mast rising from sun deck */}
       <path
-        d="M 445 60
-           L 760 60
-           L 748 40
-           L 456 40 Z"
+        d="M 780 92 L 776 62 L 822 62 L 818 92 Z"
         fill="url(#body2)"
-        stroke="#c8d0dc"
+        stroke="#c6cfdc"
         strokeWidth="0.5"
       />
-      <rect x="475" y="45" width="255" height="12" fill="url(#glass)" />
+      {/* Central vertical column */}
+      <rect x="796" y="6" width="6" height="60" fill="#e2e8f0" />
+      <rect x="796" y="6" width="6" height="60" fill="url(#glassSheen)" opacity="0.5" />
 
-      {/* Radar arch curving over the sundeck */}
-      <path
-        d="M 470 40 Q 602 12, 736 40"
-        fill="none"
-        stroke="#dde4ee"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 470 40 Q 602 12, 736 40"
-        fill="none"
-        stroke="#8f9db3"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.6"
-      />
-
-      {/* ---- Mast / radar tower ---- */}
-      {/* Vertical mast */}
-      <rect x="599" y="4" width="3" height="42" fill="#dde4ee" />
       {/* Top radar dome */}
-      <circle cx="600.5" cy="6" r="4.5" fill="#dde4ee" />
-      <circle cx="600.5" cy="6" r="1.5" fill="#0a1a2e" opacity="0.5" />
-      {/* Upper cross-bar with satellite domes */}
+      <circle cx="799" cy="8" r="6" fill="#e6ebf2" />
+      <circle cx="799" cy="8" r="2.2" fill="#0e1e35" opacity="0.4" />
+
+      {/* Upper cross-bar with two satellite domes */}
       <line
-        x1="574"
-        y1="20"
-        x2="627"
-        y2="20"
-        stroke="#dde4ee"
+        x1="758"
+        y1="22"
+        x2="840"
+        y2="22"
+        stroke="#e2e8f0"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <circle cx="762" cy="19" r="5" fill="#e6ebf2" stroke="#0e1e35" strokeWidth="0.4" />
+      <circle cx="836" cy="19" r="5" fill="#e6ebf2" stroke="#0e1e35" strokeWidth="0.4" />
+
+      {/* Middle cross-bar */}
+      <line
+        x1="770"
+        y1="36"
+        x2="828"
+        y2="36"
+        stroke="#e2e8f0"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
-      <circle cx="578" cy="18" r="3.4" fill="#dde4ee" />
-      <circle cx="623" cy="18" r="3.4" fill="#dde4ee" />
-      {/* Lower cross-bar */}
+      <rect x="772" y="34" width="4" height="4" fill="#e6ebf2" />
+      <rect x="822" y="34" width="4" height="4" fill="#e6ebf2" />
+
+      {/* Lower cross-bar with small satellite dishes */}
       <line
-        x1="582"
-        y1="32"
-        x2="618"
-        y2="32"
-        stroke="#dde4ee"
-        strokeWidth="1"
+        x1="780"
+        y1="50"
+        x2="818"
+        y2="50"
+        stroke="#e2e8f0"
+        strokeWidth="1.1"
         strokeLinecap="round"
       />
-      <rect x="584" y="30" width="4" height="4" fill="#dde4ee" />
-      <rect x="612" y="30" width="4" height="4" fill="#dde4ee" />
+      <circle cx="784" cy="48" r="2.5" fill="#e6ebf2" />
+      <circle cx="814" cy="48" r="2.5" fill="#e6ebf2" />
 
-      {/* Tricolor pennant on a halyard */}
-      <line
-        x1="600.5"
-        y1="24"
-        x2="625"
-        y2="34"
-        stroke="#c8d0dc"
-        strokeWidth="0.4"
-        opacity="0.6"
-      />
-      <g>
-        <rect x="601" y="24" width="7" height="10" fill="#2a9d8f" />
-        <rect x="608" y="24" width="7" height="10" fill="#f5f5f5" />
-        <rect x="615" y="24" width="8" height="10" fill="#c8102e" />
+      {/* Halyards */}
+      <line x1="799" y1="14" x2="764" y2="88" stroke="#c6cfdc" strokeWidth="0.5" opacity="0.7" />
+      <line x1="799" y1="14" x2="834" y2="88" stroke="#c6cfdc" strokeWidth="0.5" opacity="0.7" />
+
+      {/* Italian tricolor pennant on port halyard */}
+      <g transform="translate(770, 40)">
+        <rect x="0" y="0" width="6" height="13" fill="#2a9d8f" />
+        <rect x="6" y="0" width="6" height="13" fill="#f5f5f5" />
+        <rect x="12" y="0" width="7" height="13" fill="#c8102e" />
       </g>
 
-      {/* Small forward flag on bow */}
-      <line x1="112" y1="130" x2="112" y2="152" stroke="#dde4ee" strokeWidth="0.5" />
-      <rect x="112" y="130" width="10" height="5" fill="#dde4ee" />
+      {/* Small owner pennant on starboard halyard */}
+      <g transform="translate(816, 44)">
+        <path d="M 0 0 L 18 4 L 0 8 Z" fill="#dde4ee" />
+      </g>
 
-      {/* Waterline stripe just above hull bottom */}
-      <line x1="0" y1="215" x2="1200" y2="215" stroke="#000000" strokeWidth="1" opacity="0.55" />
-      <line x1="0" y1="219" x2="1200" y2="219" stroke="#000000" strokeWidth="0.6" opacity="0.25" />
+      {/* Bow flagstaff */}
+      <line x1="140" y1="170" x2="140" y2="190" stroke="#e2e8f0" strokeWidth="0.7" />
+      <rect x="140" y="170" width="12" height="6" fill="#e6ebf2" />
 
-      {/* Subtle wake ripples */}
-      <g stroke="#5f7896" strokeWidth="0.6" fill="none" opacity="0.28">
-        <path d="M 10 244 C 120 240, 260 250, 380 244" />
-        <path d="M 100 258 C 220 254, 340 264, 460 258" />
-        <path d="M 30 272 C 150 268, 270 278, 390 272" />
-        <path d="M 820 250 C 940 246, 1060 256, 1190 250" />
+      {/* ------ Wake ripples fore and aft ------ */}
+      <g stroke="#7a8ea8" strokeWidth="0.7" fill="none" opacity="0.32">
+        <path d="M 10 274 C 140 268, 260 282, 400 274" />
+        <path d="M 60 288 C 190 282, 310 296, 450 288" />
+        <path d="M 20 302 C 150 296, 270 310, 410 302" />
+        <path d="M 950 274 C 1080 268, 1200 282, 1390 274" />
+        <path d="M 990 288 C 1120 282, 1240 296, 1390 288" />
       </g>
     </svg>
   );
