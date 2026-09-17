@@ -66,8 +66,8 @@ export default function Header() {
         >
           <span className="block w-6">
             <span
-              className={`block h-px w-full bg-white transition-transform ${
-                open ? "translate-y-[3px] rotate-45" : ""
+              className={`block h-px w-full bg-white transition-transform origin-center ${
+                open ? "translate-y-[7px] rotate-45" : ""
               }`}
             />
             <span
@@ -76,7 +76,7 @@ export default function Header() {
               }`}
             />
             <span
-              className={`block h-px w-full bg-white mt-[6px] transition-transform ${
+              className={`block h-px w-full bg-white mt-[6px] transition-transform origin-center ${
                 open ? "-translate-y-[7px] -rotate-45" : ""
               }`}
             />
