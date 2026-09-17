@@ -20,15 +20,18 @@ export default function Contact() {
     offset: ["start end", "end start"],
   });
 
-  // Yacht sails left → right across the sticky viewport.
+  // Yacht sails left → right across the sticky viewport. Range is
+  // widened so the yacht stays well off-screen while the BEFORE/AFTER
+  // copy is still at full opacity — otherwise a large yacht on a
+  // narrow mobile viewport bleeds into the text.
   const yachtX = useTransform(
     scrollYProgress,
     [0.1, 0.9],
-    [`${-1.6 * screenWidth}px`, `${1.6 * screenWidth}px`],
+    [`${-2.6 * screenWidth}px`, `${2.6 * screenWidth}px`],
   );
   const yachtOpacity = useTransform(
     scrollYProgress,
-    [0.1, 0.28, 0.72, 0.9],
+    [0.1, 0.32, 0.68, 0.9],
     [0, 1, 1, 0],
   );
 
@@ -65,10 +68,10 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        {/* AFTER — Get in Touch */}
+        {/* AFTER — Get in Touch (starts near top on mobile, centred on md+) */}
         <motion.div
           style={{ opacity: afterOpacity }}
-          className="absolute inset-0 z-10 flex items-center justify-center px-6 md:px-10"
+          className="absolute inset-0 z-10 flex items-start md:items-center justify-center px-6 md:px-10 pt-24 pb-10 md:pt-0 md:pb-0 overflow-y-auto"
         >
           <div className="mx-auto max-w-[1200px] w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
@@ -130,7 +133,7 @@ export default function Contact() {
         >
           <YachtSilhouette
             width={880}
-            className="drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] md:w-[880px] w-[560px]"
+            className="drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] md:w-[880px] sm:w-[540px] w-[380px]"
           />
         </motion.div>
       </div>
