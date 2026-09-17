@@ -37,16 +37,6 @@ export default function Hero() {
           <span className="relative block h-14 w-px overflow-hidden bg-white/20">
             <span className="absolute inset-x-0 top-0 block h-5 bg-gradient-to-b from-transparent via-white/70 to-white motion-safe-only animate-scroll-cue" />
           </span>
-          <svg
-            viewBox="0 0 12 8"
-            className="w-3 h-2 text-white/70 group-hover:text-white transition-colors"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            aria-hidden="true"
-          >
-            <path d="M1 1L6 6L11 1" strokeLinecap="round" />
-          </svg>
         </a>
       </div>
 
