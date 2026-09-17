@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Signature from "@/components/Signature";
-import ScrollingYacht from "@/components/ScrollingYacht";
 import FeaturedFleet from "@/components/FeaturedFleet";
 import Charter from "@/components/Charter";
 import About from "@/components/About";
@@ -16,7 +15,6 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Signature />
-        <ScrollingYacht />
         <FeaturedFleet />
         <Charter />
         <About />
