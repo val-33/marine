@@ -1,18 +1,19 @@
 interface YachtSilhouetteProps {
   className?: string;
-  /** Rendered width in px. Defaults to 1000 for a proper long-profile look. */
+  /** Rendered width in px. Defaults to 1100 for a long low elevation. */
   width?: number;
 }
 
 /**
- * Side-view luxury motor yacht illustration. Long low profile, dark
- * navy hull, sweeping curved white superstructure with tinted glass,
- * tall multi-tier radar mast, and a tricolor pennant. Transparent
- * background. Original artwork inspired by modern superyacht styling.
+ * Side-view superyacht illustration, monochrome silver elevation
+ * style. Original artwork — long low profile, four stacked deck
+ * strips with tonal shading, tall centred radar mast, tender garage
+ * cutout at the stern, and small window rows. Transparent
+ * background.
  */
-export default function YachtSilhouette({ className, width = 1000 }: YachtSilhouetteProps) {
-  const VB_W = 1400;
-  const VB_H = 340;
+export default function YachtSilhouette({ className, width = 1100 }: YachtSilhouetteProps) {
+  const VB_W = 1600;
+  const VB_H = 380;
   const height = Math.round((width * VB_H) / VB_W);
   return (
     <svg
@@ -24,324 +25,339 @@ export default function YachtSilhouette({ className, width = 1000 }: YachtSilhou
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#233b5c" />
-          <stop offset="35%" stopColor="#0e1e35" />
-          <stop offset="100%" stopColor="#02060d" />
+        {/* Monochrome greys — a full tonal set from near-white to charcoal */}
+        <linearGradient id="gDeckA" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#f4f6f9" />
+          <stop offset="100%" stopColor="#cfd4dc" />
         </linearGradient>
-        <linearGradient id="hullSheen" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id="gDeckB" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#dee2e8" />
+          <stop offset="100%" stopColor="#a7aeb8" />
+        </linearGradient>
+        <linearGradient id="gDeckC" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#eef1f5" />
+          <stop offset="100%" stopColor="#b6bcc6" />
+        </linearGradient>
+        <linearGradient id="gShadow" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#8a919d" />
+          <stop offset="100%" stopColor="#3f4550" />
+        </linearGradient>
+        <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#2b323d" />
+          <stop offset="100%" stopColor="#525a68" />
+        </linearGradient>
+        <linearGradient id="gHull" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#c8ced7" />
+          <stop offset="100%" stopColor="#7d848f" />
+        </linearGradient>
+        <linearGradient id="gSheen" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-          <stop offset="20%" stopColor="#ffffff" stopOpacity="0.06" />
-          <stop offset="35%" stopColor="#ffffff" stopOpacity="0.12" />
-          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.04" />
+          <stop offset="45%" stopColor="#ffffff" stopOpacity="0.18" />
+          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.3" />
+          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.18" />
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="70%" stopColor="#eef2f8" />
-          <stop offset="100%" stopColor="#d5dce6" />
-        </linearGradient>
-        <linearGradient id="body2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#dde4ee" />
-        </linearGradient>
-        <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#040b18" />
-          <stop offset="50%" stopColor="#0e1e35" />
-          <stop offset="100%" stopColor="#1b3253" />
-        </linearGradient>
-        <linearGradient id="glassSheen" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-          <stop offset="45%" stopColor="#ffffff" stopOpacity="0.12" />
-          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.28" />
-          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-        </linearGradient>
-        <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#000" stopOpacity="0.55" />
+        <radialGradient id="gGround" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="#000" stopOpacity="0.35" />
           <stop offset="100%" stopColor="#000" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      {/* Soft shadow beneath */}
-      <ellipse cx="700" cy="278" rx="640" ry="10" fill="url(#shadow)" />
+      {/* Soft ground shadow */}
+      <ellipse cx="800" cy="322" rx="740" ry="10" fill="url(#gGround)" />
 
-      {/* ------ HULL ------ long, low, sharp pointed bow, vertical stern */}
+      {/* ---------- HULL ---------- long low silhouette, sharp bow, vertical stern */}
       <path
-        d="M 20 218
-           C 48 214, 90 202, 132 190
-           L 1340 190
-           C 1362 190, 1378 198, 1382 214
-           L 1382 240
-           C 1382 250, 1372 256, 1360 256
-           L 40 256
-           C 26 256, 16 246, 20 218 Z"
-        fill="url(#hull)"
+        d="M 20 248
+           C 60 244, 110 232, 160 220
+           L 1520 220
+           C 1548 220, 1568 228, 1574 244
+           L 1574 288
+           C 1574 296, 1566 302, 1556 302
+           L 40 302
+           C 26 302, 18 294, 18 282
+           L 20 248 Z"
+        fill="url(#gHull)"
       />
-      {/* Long hull sheen */}
+
+      {/* Hull tonal shading: darker at bottom */}
       <path
-        d="M 20 218
-           C 48 214, 90 202, 132 190
-           L 1340 190
-           C 1362 190, 1378 198, 1382 214
-           L 1382 240
-           C 1382 250, 1372 256, 1360 256
-           L 40 256
-           C 26 256, 16 246, 20 218 Z"
-        fill="url(#hullSheen)"
+        d="M 30 268
+           L 1572 268
+           L 1574 288
+           C 1574 296, 1566 302, 1556 302
+           L 40 302
+           C 26 302, 18 294, 18 282
+           L 30 268 Z"
+        fill="url(#gShadow)"
+        opacity="0.5"
       />
-      {/* Thin light accent stripe along top of hull */}
+
+      {/* Hull top-edge accent */}
       <path
-        d="M 40 202 C 90 194, 132 192, 160 192 L 1340 192"
-        stroke="#7a8ea8"
+        d="M 40 230
+           C 90 224, 140 222, 175 222
+           L 1520 222"
+        stroke="#7c8290"
         strokeWidth="0.9"
         fill="none"
-        opacity="0.55"
+        opacity="0.7"
       />
+
+      {/* Hull sheen band */}
+      <path
+        d="M 20 248
+           C 60 244, 110 232, 160 220
+           L 1520 220
+           C 1548 220, 1568 228, 1574 244
+           L 1574 288
+           C 1574 296, 1566 302, 1556 302
+           L 40 302
+           C 26 302, 18 294, 18 282
+           L 20 248 Z"
+        fill="url(#gSheen)"
+        opacity="0.35"
+      />
+
       {/* Row of small square windows in the hull */}
-      <g fill="#e5ebf3" opacity="0.9">
-        {Array.from({ length: 28 }).map((_, i) => (
-          <rect key={`hw${i}`} x={200 + i * 40} y={218} width={5} height={4} rx={0.5} />
-        ))}
-      </g>
-      {/* Aft porthole cluster */}
-      <g fill="#e5ebf3" opacity="0.9">
-        <rect x={1320} y={218} width={5} height={4} rx={0.5} />
-        <rect x={1330} y={218} width={5} height={4} rx={0.5} />
-        <rect x={1340} y={218} width={5} height={4} rx={0.5} />
-        <rect x={1350} y={218} width={5} height={4} rx={0.5} />
-      </g>
-
-      {/* Water surface line just above hull bottom */}
-      <line
-        x1="0"
-        y1="257"
-        x2="1400"
-        y2="257"
-        stroke="#000"
-        strokeWidth="1.2"
-        opacity="0.55"
-      />
-      <line
-        x1="0"
-        y1="261"
-        x2="1400"
-        y2="261"
-        stroke="#000"
-        strokeWidth="0.6"
-        opacity="0.25"
-      />
-
-      {/* Anchor detail at bow */}
-      <rect x="150" y="204" width="8" height="6" fill="#7a8ea8" opacity="0.6" />
-
-      {/* ------ MAIN DECK ------ sweeping profile, not a trapezoid */}
-      <path
-        d="M 230 190
-           C 250 180, 280 172, 320 168
-           L 1220 168
-           C 1256 168, 1284 176, 1300 190
-           Z"
-        fill="url(#body)"
-        stroke="#c6cfdc"
-        strokeWidth="0.7"
-      />
-      {/* Long tinted glass strip on main deck */}
-      <path
-        d="M 260 178
-           C 280 174, 310 172, 340 172
-           L 1240 172
-           C 1268 172, 1286 178, 1296 188
-           L 260 188 Z"
-        fill="url(#glass)"
-      />
-      <path
-        d="M 260 178
-           C 280 174, 310 172, 340 172
-           L 1240 172
-           C 1268 172, 1286 178, 1296 188
-           L 260 188 Z"
-        fill="url(#glassSheen)"
-      />
-      {/* Glass mullions */}
-      <g fill="#dde4ee" opacity="0.35">
-        {Array.from({ length: 22 }).map((_, i) => (
-          <rect key={`gm${i}`} x={310 + i * 42} y={172} width={0.7} height={16} />
+      <g fill="#39404b" opacity="0.85">
+        {Array.from({ length: 26 }).map((_, i) => (
+          <rect key={`hw${i}`} x={280 + i * 42} y={252} width={6} height={5} rx={0.5} />
         ))}
       </g>
 
-      {/* ------ UPPER DECK ------ flowing curves */}
+      {/* Aft tender-garage cutout */}
+      <rect x="1420" y="260" width="140" height="30" rx="3" fill="#2f353f" opacity="0.9" />
+      <rect x="1420" y="260" width="140" height="6" fill="url(#gSheen)" opacity="0.55" />
+
+      {/* Waterline stripes */}
+      <line x1="0" y1="304" x2="1600" y2="304" stroke="#000" strokeWidth="1.2" opacity="0.4" />
+      <line x1="0" y1="308" x2="1600" y2="308" stroke="#000" strokeWidth="0.6" opacity="0.2" />
+
+      {/* Anchor recess */}
+      <rect x="170" y="234" width="8" height="6" rx="1" fill="#39404b" opacity="0.6" />
+
+      {/* Bow bulwark accent line */}
       <path
-        d="M 360 168
-           C 400 148, 480 132, 620 128
-           L 1080 128
-           C 1170 132, 1220 148, 1240 168
-           Z"
-        fill="url(#body2)"
-        stroke="#c6cfdc"
-        strokeWidth="0.7"
-      />
-      {/* Sweeping accent line under upper-deck edge */}
-      <path
-        d="M 380 158
-           C 460 142, 620 134, 850 134
-           C 1040 134, 1160 144, 1220 158"
+        d="M 22 248 C 60 244, 110 232, 160 220"
+        stroke="#5a606c"
+        strokeWidth="1.1"
         fill="none"
-        stroke="#b1bccb"
-        strokeWidth="0.9"
+        opacity="0.65"
+      />
+
+      {/* ---------- DECK 1: MAIN DECK ---------- widest superstructure */}
+      <path
+        d="M 250 220
+           C 280 206, 320 196, 370 194
+           L 1400 194
+           C 1440 196, 1470 206, 1490 220
+           Z"
+        fill="url(#gDeckA)"
+        stroke="#8f96a2"
+        strokeWidth="0.6"
+      />
+      {/* Main-deck long tinted window strip */}
+      <path
+        d="M 300 208
+           C 330 202, 370 200, 400 200
+           L 1370 200
+           C 1400 200, 1430 204, 1452 214
+           L 300 214 Z"
+        fill="url(#gGlass)"
+      />
+      <path
+        d="M 300 208
+           C 330 202, 370 200, 400 200
+           L 1370 200
+           C 1400 200, 1430 204, 1452 214
+           L 300 214 Z"
+        fill="url(#gSheen)"
         opacity="0.75"
       />
-      {/* Upper-deck glass */}
-      <path
-        d="M 420 148
-           C 470 138, 560 134, 700 134
-           L 1000 134
-           C 1140 134, 1190 140, 1220 152
-           L 1210 164
-           L 430 164 Z"
-        fill="url(#glass)"
-      />
-      <path
-        d="M 420 148
-           C 470 138, 560 134, 700 134
-           L 1000 134
-           C 1140 134, 1190 140, 1220 152
-           L 1210 164
-           L 430 164 Z"
-        fill="url(#glassSheen)"
+      {/* Mullions */}
+      <g fill="#eaeef4" opacity="0.4">
+        {Array.from({ length: 26 }).map((_, i) => (
+          <rect key={`m1${i}`} x={340 + i * 42} y={200} width={0.8} height={14} />
+        ))}
+      </g>
+      {/* Deck shadow line under main deck */}
+      <line
+        x1="255"
+        y1="220"
+        x2="1490"
+        y2="220"
+        stroke="#5c6270"
+        strokeWidth="0.9"
+        opacity="0.4"
       />
 
-      {/* ------ BRIDGE / SUN DECK cap ------ */}
+      {/* ---------- DECK 2: UPPER DECK ---------- inset with swept sides */}
       <path
-        d="M 550 128
-           C 600 100, 720 90, 880 92
-           C 980 94, 1040 108, 1060 128
+        d="M 340 194
+           C 380 168, 460 154, 620 150
+           L 1160 150
+           C 1290 154, 1360 168, 1400 194
            Z"
-        fill="url(#body2)"
-        stroke="#c6cfdc"
+        fill="url(#gDeckC)"
+        stroke="#8f96a2"
+        strokeWidth="0.6"
+      />
+      {/* Sweeping tone break under the upper deck */}
+      <path
+        d="M 360 184
+           C 460 168, 640 158, 880 158
+           C 1120 158, 1300 168, 1390 184"
+        stroke="#5c6270"
+        strokeWidth="0.9"
+        fill="none"
+        opacity="0.4"
+      />
+      {/* Upper-deck window strip */}
+      <path
+        d="M 390 176
+           C 460 158, 600 152, 760 152
+           L 1030 152
+           C 1220 154, 1310 164, 1360 180
+           L 1350 190
+           L 400 190 Z"
+        fill="url(#gGlass)"
+      />
+      <path
+        d="M 390 176
+           C 460 158, 600 152, 760 152
+           L 1030 152
+           C 1220 154, 1310 164, 1360 180
+           L 1350 190
+           L 400 190 Z"
+        fill="url(#gSheen)"
+        opacity="0.7"
+      />
+
+      {/* ---------- DECK 3: BRIDGE DECK ---------- */}
+      <path
+        d="M 500 150
+           C 550 128, 660 118, 820 116
+           L 1010 116
+           C 1170 118, 1240 128, 1270 150
+           Z"
+        fill="url(#gDeckA)"
+        stroke="#8f96a2"
         strokeWidth="0.6"
       />
       {/* Bridge windshield */}
       <path
-        d="M 590 118
-           C 640 102, 740 96, 860 98
-           C 950 100, 1000 110, 1020 122
-           L 590 122 Z"
-        fill="url(#glass)"
+        d="M 540 140
+           C 590 122, 700 116, 820 118
+           L 980 118
+           C 1120 122, 1200 130, 1230 144
+           L 550 144 Z"
+        fill="url(#gGlass)"
       />
       <path
-        d="M 590 118
-           C 640 102, 740 96, 860 98
-           C 950 100, 1000 110, 1020 122
-           L 590 122 Z"
-        fill="url(#glassSheen)"
-      />
-
-      {/* Radar arch over sun deck */}
-      <path
-        d="M 620 92 C 720 42, 900 42, 990 92"
-        fill="none"
-        stroke="#dde4ee"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 620 92 C 720 42, 900 42, 990 92"
-        fill="none"
-        stroke="#7a8ea8"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.55"
+        d="M 540 140
+           C 590 122, 700 116, 820 118
+           L 980 118
+           C 1120 122, 1200 130, 1230 144
+           L 550 144 Z"
+        fill="url(#gSheen)"
+        opacity="0.75"
       />
 
-      {/* Small side railings on foredeck */}
-      <g stroke="#c6cfdc" strokeWidth="0.6" opacity="0.55">
-        <line x1="230" y1="185" x2="360" y2="168" />
-        <line x1="1240" y1="168" x2="1310" y2="188" />
-      </g>
-
-      {/* ------ MAST TOWER ------ tall multi-tier structure */}
-      {/* Base of mast rising from sun deck */}
+      {/* ---------- DECK 4: SUN DECK ---------- narrowest */}
       <path
-        d="M 780 92 L 776 62 L 822 62 L 818 92 Z"
-        fill="url(#body2)"
-        stroke="#c6cfdc"
+        d="M 640 116
+           C 700 92, 800 84, 900 86
+           C 1000 88, 1080 96, 1120 116
+           Z"
+        fill="url(#gDeckB)"
+        stroke="#8f96a2"
         strokeWidth="0.5"
       />
-      {/* Central vertical column */}
-      <rect x="796" y="6" width="6" height="60" fill="#e2e8f0" />
-      <rect x="796" y="6" width="6" height="60" fill="url(#glassSheen)" opacity="0.5" />
+      {/* Sun-deck side stripe */}
+      <rect x="660" y="106" width="440" height="4" fill="#5c6270" opacity="0.35" />
+
+      {/* Small side railings on foredeck */}
+      <g stroke="#8f96a2" strokeWidth="0.6" opacity="0.6">
+        <line x1="235" y1="216" x2="360" y2="196" />
+        <line x1="1400" y1="196" x2="1500" y2="218" />
+      </g>
+
+      {/* ---------- MAST TOWER ---------- tall central structure */}
+      {/* base plinth on sun deck */}
+      <path
+        d="M 856 86 L 852 60 L 908 60 L 904 86 Z"
+        fill="url(#gDeckA)"
+        stroke="#8f96a2"
+        strokeWidth="0.5"
+      />
+
+      {/* structural upright */}
+      <rect x="878" y="4" width="4" height="58" fill="#c8ced7" />
+      <rect x="878" y="4" width="4" height="58" fill="url(#gSheen)" opacity="0.5" />
 
       {/* Top radar dome */}
-      <circle cx="799" cy="8" r="6" fill="#e6ebf2" />
-      <circle cx="799" cy="8" r="2.2" fill="#0e1e35" opacity="0.4" />
+      <circle cx="880" cy="8" r="5" fill="#c8ced7" />
+      <circle cx="880" cy="8" r="1.6" fill="#2b323d" opacity="0.6" />
 
-      {/* Upper cross-bar with two satellite domes */}
+      {/* Upper cross-bar with two large satellite domes */}
       <line
-        x1="758"
+        x1="840"
         y1="22"
-        x2="840"
+        x2="920"
         y2="22"
-        stroke="#e2e8f0"
+        stroke="#c8ced7"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-      <circle cx="762" cy="19" r="5" fill="#e6ebf2" stroke="#0e1e35" strokeWidth="0.4" />
-      <circle cx="836" cy="19" r="5" fill="#e6ebf2" stroke="#0e1e35" strokeWidth="0.4" />
+      <circle cx="844" cy="19" r="5" fill="#c8ced7" stroke="#39404b" strokeWidth="0.4" />
+      <circle cx="916" cy="19" r="5" fill="#c8ced7" stroke="#39404b" strokeWidth="0.4" />
 
       {/* Middle cross-bar */}
       <line
-        x1="770"
+        x1="852"
         y1="36"
-        x2="828"
+        x2="908"
         y2="36"
-        stroke="#e2e8f0"
+        stroke="#c8ced7"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
-      <rect x="772" y="34" width="4" height="4" fill="#e6ebf2" />
-      <rect x="822" y="34" width="4" height="4" fill="#e6ebf2" />
+      <rect x="854" y="34" width="4" height="4" fill="#c8ced7" />
+      <rect x="902" y="34" width="4" height="4" fill="#c8ced7" />
 
-      {/* Lower cross-bar with small satellite dishes */}
+      {/* Lower cross-bar with small dishes */}
       <line
-        x1="780"
+        x1="862"
         y1="50"
-        x2="818"
+        x2="898"
         y2="50"
-        stroke="#e2e8f0"
+        stroke="#c8ced7"
         strokeWidth="1.1"
         strokeLinecap="round"
       />
-      <circle cx="784" cy="48" r="2.5" fill="#e6ebf2" />
-      <circle cx="814" cy="48" r="2.5" fill="#e6ebf2" />
+      <circle cx="864" cy="48" r="2.4" fill="#c8ced7" />
+      <circle cx="896" cy="48" r="2.4" fill="#c8ced7" />
 
-      {/* Halyards */}
-      <line x1="799" y1="14" x2="764" y2="88" stroke="#c6cfdc" strokeWidth="0.5" opacity="0.7" />
-      <line x1="799" y1="14" x2="834" y2="88" stroke="#c6cfdc" strokeWidth="0.5" opacity="0.7" />
-
-      {/* Italian tricolor pennant on port halyard */}
-      <g transform="translate(770, 40)">
-        <rect x="0" y="0" width="6" height="13" fill="#2a9d8f" />
-        <rect x="6" y="0" width="6" height="13" fill="#f5f5f5" />
-        <rect x="12" y="0" width="7" height="13" fill="#c8102e" />
-      </g>
-
-      {/* Small owner pennant on starboard halyard */}
-      <g transform="translate(816, 44)">
-        <path d="M 0 0 L 18 4 L 0 8 Z" fill="#dde4ee" />
-      </g>
+      {/* Halyards fanning down */}
+      <line x1="880" y1="14" x2="844" y2="82" stroke="#8f96a2" strokeWidth="0.5" opacity="0.7" />
+      <line x1="880" y1="14" x2="916" y2="82" stroke="#8f96a2" strokeWidth="0.5" opacity="0.7" />
 
       {/* Bow flagstaff */}
-      <line x1="140" y1="170" x2="140" y2="190" stroke="#e2e8f0" strokeWidth="0.7" />
-      <rect x="140" y="170" width="12" height="6" fill="#e6ebf2" />
+      <line x1="170" y1="200" x2="170" y2="220" stroke="#c8ced7" strokeWidth="0.7" />
+      <rect x="170" y="200" width="12" height="6" fill="#c8ced7" />
 
-      {/* ------ Wake ripples fore and aft ------ */}
-      <g stroke="#7a8ea8" strokeWidth="0.7" fill="none" opacity="0.32">
-        <path d="M 10 274 C 140 268, 260 282, 400 274" />
-        <path d="M 60 288 C 190 282, 310 296, 450 288" />
-        <path d="M 20 302 C 150 296, 270 310, 410 302" />
-        <path d="M 950 274 C 1080 268, 1200 282, 1390 274" />
-        <path d="M 990 288 C 1120 282, 1240 296, 1390 288" />
+      {/* Aft flag */}
+      <line x1="1520" y1="204" x2="1520" y2="220" stroke="#c8ced7" strokeWidth="0.7" />
+      <rect x="1520" y="204" width="10" height="5" fill="#c8ced7" />
+
+      {/* ---------- Water surface ripples fore & aft ---------- */}
+      <g stroke="#8f96a2" strokeWidth="0.7" fill="none" opacity="0.32">
+        <path d="M 10 320 C 160 314, 300 328, 460 320" />
+        <path d="M 70 336 C 210 330, 350 344, 500 336" />
+        <path d="M 20 350 C 170 344, 310 358, 470 350" />
+        <path d="M 1100 320 C 1240 314, 1380 328, 1590 320" />
+        <path d="M 1150 336 C 1290 330, 1420 344, 1590 336" />
       </g>
     </svg>
   );
