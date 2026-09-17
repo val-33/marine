@@ -28,12 +28,25 @@ export default function Hero() {
 
         <a
           href="#fleet"
-          className="mt-14 inline-flex flex-col items-center gap-3 group"
+          aria-label="Scroll to fleet"
+          className="mt-14 inline-flex flex-col items-center gap-4 group motion-safe-only animate-scroll-bob"
         >
           <span className="eyebrow text-[11px] text-white/90 group-hover:text-white transition-colors">
             Discover
           </span>
-          <span className="block h-10 w-px bg-white/50 group-hover:bg-white transition-colors" />
+          <span className="relative block h-14 w-px overflow-hidden bg-white/20">
+            <span className="absolute inset-x-0 top-0 block h-5 bg-gradient-to-b from-transparent via-white/70 to-white motion-safe-only animate-scroll-cue" />
+          </span>
+          <svg
+            viewBox="0 0 12 8"
+            className="w-3 h-2 text-white/70 group-hover:text-white transition-colors"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            aria-hidden="true"
+          >
+            <path d="M1 1L6 6L11 1" strokeLinecap="round" />
+          </svg>
         </a>
       </div>
 
